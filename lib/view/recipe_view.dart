@@ -1,26 +1,25 @@
+import 'package:divide_and_cooquer/models/ingredient.dart';
 import 'package:divide_and_cooquer/models/recipe.dart';
+import 'package:divide_and_cooquer/models/cook_step.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class RecipeView extends StatelessWidget {
-  final Recipe recipe;
-  final Ingredient[] ingredients;
-  final Step[] steps;
 
   RecipeView({
     Key key,
-    @required this.recipe
-  }) :  this.ingredients = recipe.ingredients,
-        this.steps = recipe.steps,
-        super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
+    final Recipe recipe = ModalRoute.of(context).settings.arguments;
+    final List<CookStep> steps = recipe.cookSteps;
+    final List<Ingredient> ingredients = recipe.ingredients;
     return Column(
       children: [
         // TODO: Make recipe name more visible, etc.
         Text(
-          this.recipe.name,
+          recipe.name,
           style: TextStyle(
             fontSize: 28,
           ),
@@ -33,9 +32,9 @@ class RecipeView extends StatelessWidget {
           )
         ),
         ListView.builder(
-            itemCount: this.ingredients.length,
+            itemCount: ingredients.length,
             itemBuilder: (BuildContext context, int index) {
-              final ingredient = this.ingredients[index];
+              final ingredient = ingredients[index];
               return ListTile(
                   title: Text(ingredient.name)
               );
@@ -48,15 +47,15 @@ class RecipeView extends StatelessWidget {
             )
         ),
         ListView.builder(
-            itemCount: this.steps.length,
+            itemCount: steps.length,
             itemBuilder: (BuildContext context, int index) {
-              final step = this.steps[index];
+              final step = steps[index];
               return ListTile(
                   title: Text(step.name)
               );
             }
         )
-      ],
-    )
+      ]
+    );
   }
 }

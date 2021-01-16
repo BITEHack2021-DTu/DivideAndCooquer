@@ -22,7 +22,10 @@ class RecipeList extends StatelessWidget {
                 itemBuilder: (BuildContext context, int index) {
                   final recipe = recipes[index];
                   return RecipeItem(
-                    recipe: recipe
+                      recipe: recipe,
+                      onTap: () {
+                        Navigator.of(context).pushNamed("/recipe", arguments: recipe);
+                      }
                   );
                 }
             );

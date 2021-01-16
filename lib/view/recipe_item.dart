@@ -8,11 +8,11 @@ class RecipeItem extends ListTile {
   RecipeItem({
     Key key,
     @required this.recipe,
+    @required onTap,
   }) : super(
     key: key,
     title: Text(recipe.name),
-    onTap: () {
-      print('Not yet implemented');
-    }
+    subtitle: Text(recipe.cuisine),
+    onTap: onTap,
   );
 }
