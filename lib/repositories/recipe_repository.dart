@@ -1,7 +1,7 @@
 import 'package:divide_and_cooquer/models/recipe.dart';
 
 class RecipeRepository {
-  List<Recipe> recipes;
+  List<Recipe> recipes = [];
 
   RecipeRepository() {
     recipes
