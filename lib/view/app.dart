@@ -6,8 +6,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class App extends StatelessWidget {
+  void load() {
+    RecipeRepository recipeRepository = RecipeRepository();
+    recipeRepository.loadRecipes();
+  }
+
   @override
   Widget build(BuildContext context) {
+    load();
+
     return MaterialApp(
       title: 'App',
       home: BlocProvider(
