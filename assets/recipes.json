@@ -31,7 +31,7 @@
 
   {
     "cuisine" : "Poland",
-    "name" : "Bigos",
+    "name" : "Tortilla",
     "ingredients" : [
       {
         "name" : "Maka",
@@ -61,7 +61,7 @@
 
   {
     "cuisine" : "Poland",
-    "name" : "Bigos",
+    "name" : "Kiełbasa",
     "ingredients" : [
       {
         "name" : "Maka",
