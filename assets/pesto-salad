@@ -70,13 +70,13 @@
 "next": [2]
 },
 {
-"name": "Prepare",
+"name": "Mix ingredients",
 "description": "Make pesto: In a dry skillet over medium heat, toast walnuts until golden, 3 to 4 minutes, swirling pan constantly. In a blender, combine basil and olive oil. Blend until combined, then add walnuts, garlic, Parmesan, and lemon juice and season with salt and pepper. Pulse until completely incorporated.",
 "time": 40,
 "next": [3]
 },
 {
-"name": "Prepare",
+"name": "Serve dish",
 "description": "In a large bowl, toss together noodles, pesto, tomatoes, and Ciliegine until well coated.",
 "time": 20,
 "next": []
