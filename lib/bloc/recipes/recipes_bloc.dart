@@ -12,7 +12,7 @@ part 'recipes_state.dart';
 class RecipesBloc extends Bloc<RecipesEvent, RecipesState> {
   final RecipeRepository recipeRepository;
 
-  RecipesBloc(@required this.recipeRepository) : super(RecipesLoadInProgress());
+  RecipesBloc(this.recipeRepository) : super(RecipesLoadInProgress());
 
   @override
   Stream<RecipesState> mapEventToState(RecipesEvent event) async* {

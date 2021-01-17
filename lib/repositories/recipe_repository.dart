@@ -1,106 +1,106 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:divide_and_cooquer/models/cook_step.dart';
-import 'package:divide_and_cooquer/models/ingredient.dart';
 import 'package:divide_and_cooquer/models/recipe.dart';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
 import 'package:path_provider/path_provider.dart';
 
 class RecipeRepository {
+  static const prefix = "recipes";
   List<Recipe> recipes = [];
 
   RecipeRepository();
 
   Future<List<Recipe>> loadRecipes() async {
-    var myDir = Directory((await _localPath).toString());
-    if(!myDir.existsSync()) {
-      myDir = new Directory('recipes').create() as Directory;
+
+    if(recipes.length > 0) {
+      return recipes;
     }
 
-    if(myDir.listSync().length == 0) {
-      return readRecipesOnline();
-    }
-    List<Recipe> recipeList;
-    myDir.list(recursive: false, followLinks: false)
-        .listen((FileSystemEntity entity) {
+    final documentDir = await _localDir;
+    final documentDirPath = documentDir.path;
 
-      recipeList.addAll(createRecipesFromFile(entity.path));
+    final recipesPath = documentDirPath + "/" + prefix;
+    var recipesDir = Directory(recipesPath);
+
+    if (!recipesDir.existsSync()) {
+      recipesDir = await Directory(recipesPath).create();
+    } else {
+      final entries = recipesDir.listSync();
+      if (entries.length == 0) {
+        await _loadRecipesOnline();
+      } else {
+        await _loadRecipesFromFile(entries);
+      }
+    }
+    return recipes;
+  }
+
+  Future<Directory> get _localDir {
+    return  getApplicationDocumentsDirectory();
+  }
+
+  Future<String> _recipesLocalPath() async {
+    final documentDir = await _localDir;
+    final documentDirPath = documentDir.path;
+
+    return documentDirPath + "/" + prefix;
+}
+
+  Future<void> _loadRecipesFromFile(List<FileSystemEntity> entries) {
+    recipes = entries
+        .map((FileSystemEntity entry) {
+      final rawJSON = File(entry.path).readAsStringSync();
+
+      final json = JsonDecoder().convert(rawJSON);
+      return Recipe.fromJSON(json);
     });
-
-    return recipeList;
   }
 
-  Future<String> get _localPath async {
-    final directory = await getApplicationDocumentsDirectory();
-    return directory.path;
+  Future<void> addRecipe(Recipe recipe) {
+    recipes.add(recipe);
+    saveRecipe(recipe);
   }
 
-  List<Recipe> createRecipesFromFile(String path) {
-    List<Ingredient> ingredientList;
-    List<CookStep> stepList;
-    final string = File(path).readAsStringSync();
-    final json = JsonDecoder().convert(string);
-    final List<Recipe> recipesList = (json)
-        .map((recipe) {
-          recipe["ingredients"].forEach((ingredient) {
-            Ingredient smallIngredient = Ingredient(name: ingredient["name"]);
-            ingredientList.add(smallIngredient);
-          });
-
-          recipe["step"].forEach((step) {
-            final CookStep cookStep = CookStep(name: step["name"]);
-            stepList.add(cookStep);
-          });
-
-          return Recipe(name: recipe["name"], cuisine: recipe["cuisine"], ingredients: ingredientList, cookSteps: stepList);
-        })
-        .toList();
-    recipesList.forEach((element) {saveRecipe(element);});
-    return recipesList;
-  }
-
-  Future<void> saveRecipe(Recipe recipe) {
-      recipes.add(recipe);
+  Future<void> saveRecipe(Recipe recipe) async {
+      final path = await _recipesLocalPath();
+      File recipeFile = File(path + recipe.hashCode.toString())..createSync();
+      recipeFile.writeAsString(recipe.toJSON());
   }
 
   Future<void> deleteRecipe(Recipe recipe) {
-    recipes.remove(recipe);
+      recipes.remove(recipe);
 
   }
 
-  Future<List<Recipe>> readRecipesOnline() async {
-    List<Ingredient> ingredientList;
-    List<CookStep> stepList;
-    List<Recipe> recipesList;
-    String url = "https://xert.ct8.pl/hackathon/recipes";
+  Future<void> _loadRecipesOnline() async {
+    const String url = "https://xert.ct8.pl/hackathon";
 
     final client = http.Client();
-    final response = await client.get(url);
 
-    final newClient = http.Client();
+    final response = await client.get(url + "/recipes");
 
     if (response.statusCode == 200) {
-      final data = json.decode(response.body);
-      recipesList = (data)
-        .forEach((directory) => {
-          newClient.get("https://xert.ct8.pl/hackathon/" + directory)
-        })
-        .map((recipe) {
-        recipe["ingredients"].forEach((ingredient) {
-          Ingredient smallIngredient = Ingredient(name: ingredient["name"]);
-          ingredientList.add(smallIngredient);
-        });
+      final recipeList = json.decode(response.body);
+      final requests = List.of(recipeList)
+          .map((recipeName) {
+        return client.get(url + "/" + recipeName);
+      }).toList();
 
-        recipe["step"].forEach((step) {
-          final CookStep cookStep = CookStep(name: step["name"]);
-          stepList.add(cookStep);
-        });
-        return Recipe(name: recipe["name"], cuisine: recipe["cuisine"], ingredients: ingredientList, cookSteps: stepList);
-      })
-    .toList();
-      recipesList.forEach((element) {saveRecipe(element);});
-      return recipesList;
+      Future<List<Response>> responses= Future.wait(requests);
+      debugPrint((await responses).toString());
+      // todo: check for error
+      recipes = (await responses)
+          .map((res) {
+            debugPrint(res.statusCode.toString());
+            final json = JsonDecoder().convert(res.body);
+            return Recipe.fromJSON(json);
+          })
+          .toList();
+
+      recipes.forEach((recipe) {saveRecipe(recipe);});
     } else {
       throw Exception('error fetching posts');
     }
