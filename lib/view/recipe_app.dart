@@ -24,13 +24,16 @@ class RecipeApp extends StatelessWidget {
           );
         }
 
-        return Scaffold(
-          appBar: TopBar(
-                () {
-              Navigator.of(context).pushNamed("/new_recipe");
-            },
-          ),
-          floatingActionButton: startButton,
+      return Scaffold(
+        appBar: TopBar(
+          () {
+            Navigator.of(context).pushNamed("/new_recipe");
+          },
+          () {
+            Navigator.of(context).pushNamed("/recipe_search");
+          },
+        ),
+        floatingActionButton: startButton,
           body: Center(
             child: RecipeList(),
           ),

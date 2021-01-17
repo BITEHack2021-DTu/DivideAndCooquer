@@ -31,24 +31,35 @@ class RecipeSearchView extends StatelessWidget {
     return BlocProvider<SearchedRecipesBloc>(
       create: (context) => SearchedRecipesBloc(recipesBloc: BlocProvider.of<RecipesBloc>(context)),
       child: Scaffold(
-          body: Column(
-            children: [
-              TextField(),
-              BlocBuilder<SearchedRecipesBloc, SearchedRecipesState>(
-                builder: (context, state) {
-                  if(state is SearchedRecipesLoadSuccess) {
-                    final items = (state as SearchedRecipesLoadSuccess)
-                        .filteredRecipes
-                        .map((recipe) => _mapRecipeToListEntry(context, recipe))
-                        .toList();
-                    return ListView(
-                      children: items,
-                    );
-                  }
-                  return Container();
-                },
-              )
-            ],
+          body: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+            Builder(
+                builder: (context) => TextField(
+                      onChanged: (value) {
+                        BlocProvider.of<SearchedRecipesBloc>(context)
+                            .add(SearchRecipesUpdated(value));
+                      },
+                    )),
+            BlocBuilder<SearchedRecipesBloc, SearchedRecipesState>(
+                  builder: (context, state) {
+                    if(state is SearchedRecipesLoadSuccess) {
+                      final items = (state)
+                          .filteredRecipes
+                          .map((recipe) => _mapRecipeToListEntry(context, recipe))
+                          .toList();
+                      return Expanded(
+                        child: ListView(
+                          children: items,
+                        ),
+                      );
+                    }
+                    return Container();
+                  },
+                )
+              ],
+            ),
           )
       ),
     );

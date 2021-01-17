@@ -5,6 +5,7 @@ import 'package:divide_and_cooquer/theme/app_theme.dart';
 import 'package:divide_and_cooquer/theme/custom_theme.dart';
 import 'package:divide_and_cooquer/view/add_recipe_view.dart';
 import 'package:divide_and_cooquer/view/recipe_app.dart';
+import 'package:divide_and_cooquer/view/recipe_search_view.dart';
 import 'package:divide_and_cooquer/view/recipe_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -34,6 +35,7 @@ class App extends StatelessWidget {
                 '/': (context) => RecipeApp(),
                 '/recipe': (context) => RecipeView(),
                 '/new_recipe': (context) => AddRecipeView(),
+                "/recipe_search": (context) => RecipeSearchView(),
               },
             );
           },

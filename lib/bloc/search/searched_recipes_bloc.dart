@@ -30,7 +30,7 @@ class SearchedRecipesBloc extends Bloc<SearchedRecipesEvent, SearchedRecipesStat
 
   @override
   Stream<SearchedRecipesState> mapEventToState(SearchedRecipesEvent event) async* {
-    if (event is SearchUpdated) {
+    if (event is SearchRecipesUpdated) {
       yield* _mapUpdateFilterToState(event);
     } else if (event is RecipesUpdated) {
       yield* _mapRecipesUpdatedToState(event);
@@ -38,7 +38,7 @@ class SearchedRecipesBloc extends Bloc<SearchedRecipesEvent, SearchedRecipesStat
   }
 
   Stream<SearchedRecipesState> _mapUpdateFilterToState(
-      SearchUpdated event,
+      SearchRecipesUpdated event,
       ) async* {
     if (recipesBloc.state is RecipesLoadSuccess) {
       yield SearchedRecipesLoadSuccess(
@@ -70,7 +70,8 @@ class SearchedRecipesBloc extends Bloc<SearchedRecipesEvent, SearchedRecipesStat
   List<Recipe> _mapRecipesToFilteredRecipes(List<Recipe> recipes, String query) {
     if(query != null) {
       return recipes.where((recipe) {
-        return StringSimilarity.compareTwoStrings(recipe.name, query) > 0.6;
+        return StringSimilarity.compareTwoStrings(recipe.name, query) > 0.3
+          || recipe.name.toUpperCase().startsWith(query.toUpperCase());
       }).toList();
     } else {
       return [];

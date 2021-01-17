@@ -2,7 +2,7 @@ import 'package:divide_and_cooquer/view/search_view.dart';
 import 'package:flutter/material.dart';
 
 class TopBar extends AppBar {
-  TopBar(addCallback) : super(
+  TopBar(addCallback, searchCallback) : super(
       title: const Text('Divide and Cooquer'),
       actions: <Widget>[
         IconButton(
@@ -12,12 +12,8 @@ class TopBar extends AppBar {
         ),
         IconButton(
           icon: const Icon(Icons.search),
-          tooltip: 'filter',
-          onPressed: () {
-            SearchView searchView = SearchView();
-            searchView.createState();
-            // TODO: Implement action
-          },
+          tooltip: 'search',
+          onPressed: searchCallback
         )
       ]);
 }
