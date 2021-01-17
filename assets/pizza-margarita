@@ -3,7 +3,7 @@
 "name" : "Pizza Margarita",
 "ingredients" : [
   {
-  "name" : "Round of pizza dough, stretched",
+    "name" : "Round of pizza dough, stretched",
     "quantity" : 12,
     "unit" : "inch"
   },
@@ -50,7 +50,7 @@
     "name": "Bake time",
     "description": "Using a pizza peel, pick up the pie and slide it onto the heated stone or tiles in the oven. Bake until the crust is golden brown and the cheese is bubbling, approximately 4 to 8 minutes.",
     "time": 15,
-    "next":
+    "next": ""
   }
 ]
 }

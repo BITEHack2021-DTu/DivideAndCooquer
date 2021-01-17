@@ -61,7 +61,7 @@
         "name": "Wait",
         "description": "Let oil cool completely.",
         "time": 15,
-        "next":
+        "next": ""
       }
     ]
   }
