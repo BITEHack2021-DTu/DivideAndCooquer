@@ -1,3 +1,4 @@
+import 'package:divide_and_cooquer/view/search_view.dart';
 import 'package:flutter/material.dart';
 
 class TopBar extends AppBar {
@@ -13,6 +14,8 @@ class TopBar extends AppBar {
           icon: const Icon(Icons.search),
           tooltip: 'filter',
           onPressed: () {
+            SearchView searchView = SearchView();
+            searchView.createState();
             // TODO: Implement action
           },
         )
