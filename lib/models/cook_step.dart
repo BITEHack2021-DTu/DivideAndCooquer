@@ -9,4 +9,9 @@ class CookStep extends Equatable {
 
   @override
   List<Object> get props => [name];
+
+  @override
+  String toString() {
+    return name + " " + description;
+  }
 }

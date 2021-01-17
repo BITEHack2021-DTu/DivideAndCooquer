@@ -1,11 +1,14 @@
+import 'package:divide_and_cooquer/bloc/recipes/recipes_bloc.dart';
 import 'package:divide_and_cooquer/models/cook_step.dart';
 import 'package:divide_and_cooquer/models/cuisines.dart';
 import 'package:divide_and_cooquer/models/ingredient.dart';
+import 'package:divide_and_cooquer/models/recipe.dart';
 import 'package:divide_and_cooquer/models/unit.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AddRecipeView extends StatefulWidget {
   AddRecipeView({Key key}) : super(key: key);
@@ -21,10 +24,17 @@ class AddRecipeViewState extends State<AddRecipeView> {
   List<Widget> ingredientItems = [];
   List<Widget> stepItems = [];
 
+  Unit unit;
+  Cuisines cuisine;
+
   final _formKey = GlobalKey<FormState>();
   final _ingredientKey = GlobalKey<FormState>();
   final _stepKey = GlobalKey<FormState>();
-  final _controller = TextEditingController();
+  final _nameController = TextEditingController();
+  final _ingNameController = TextEditingController();
+  final _ingQuantityController = TextEditingController();
+  final _stepNameController = TextEditingController();
+  final _stepDescriptionController = TextEditingController();
 
   addIngredient(Ingredient ingredient) {
     ingredients.add(ingredient);
@@ -77,6 +87,7 @@ class AddRecipeViewState extends State<AddRecipeView> {
           child: ListView(
             children: [
               TextFormField(
+                controller: _nameController,
                 decoration: const InputDecoration(labelText: 'Name'),
                 validator: (value) {
                   if (value.length < 3) {
@@ -86,7 +97,9 @@ class AddRecipeViewState extends State<AddRecipeView> {
                 },
               ),
               DropdownButtonFormField(
-                onChanged: (cuisine) {},
+                onChanged: (cuisine) {
+                  this.cuisine = cuisine;
+                },
                 items: Cuisines.values.map((Cuisines cuisine) {
                   return DropdownMenuItem<Cuisines>(
                       value: cuisine,
@@ -115,7 +128,7 @@ class AddRecipeViewState extends State<AddRecipeView> {
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(0.0, 5.0, 0.0, 0.0),
                       child: TextFormField(
-                        controller: _controller,
+                        controller: _ingNameController,
                         decoration: const InputDecoration(labelText: 'Name'),
                         validator: (value) {
                           if (value.isEmpty) {
@@ -131,6 +144,7 @@ class AddRecipeViewState extends State<AddRecipeView> {
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(0.0, 5.0, 0.0, 0.0),
                       child: TextFormField(
+                        controller: _ingQuantityController,
                         keyboardType: TextInputType.number,
                         decoration:
                         const InputDecoration(labelText: 'Quantity'),
@@ -144,9 +158,11 @@ class AddRecipeViewState extends State<AddRecipeView> {
                     ),
                   ),
                   Expanded(
-                    flex: 2,
+                    flex: 3,
                     child: DropdownButtonFormField(
-                      onChanged: (unit) {},
+                      onChanged: (unit) {
+                        this.unit = unit;
+                      },
                       items: Unit.values.map((Unit unit) {
                         return DropdownMenuItem<Unit>(
                             value: unit,
@@ -167,7 +183,7 @@ class AddRecipeViewState extends State<AddRecipeView> {
                       onPressed: () {
                         // TODO: Add validation
                           setState(() {
-                            addIngredient(new Ingredient(name: _controller.text, quantity: 50.0, unit: Unit.ml));
+                            addIngredient(new Ingredient(name: _ingNameController.text, quantity: double.parse(_ingQuantityController.text), unit: this.unit));
                           });
                       },
                       icon: Icon(Icons.add),
@@ -177,6 +193,14 @@ class AddRecipeViewState extends State<AddRecipeView> {
               ),
               ...ingredientItems,
               Divider(),
+              Center(
+                  child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  'Steps',
+                  style: TextStyle(fontSize: 18),
+                ),
+              )),
               Row(
                 children: [
                   Expanded(
@@ -184,6 +208,7 @@ class AddRecipeViewState extends State<AddRecipeView> {
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(0.0, 5.0, 0.0, 0.0),
                       child: TextFormField(
+                        controller: _stepNameController,
                         decoration: const InputDecoration(labelText: 'Name'),
                         validator: (value) {
                           if (value.isEmpty) {
@@ -195,13 +220,12 @@ class AddRecipeViewState extends State<AddRecipeView> {
                     ),
                   ),
                   Expanded(
-                    flex: 3,
+                    flex: 6,
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(0.0, 5.0, 0.0, 0.0),
                       child: TextFormField(
-                        keyboardType: TextInputType.number,
-                        decoration:
-                        const InputDecoration(labelText: 'Quantity'),
+                        controller: _stepDescriptionController,
+                        decoration: const InputDecoration(labelText: 'Description'),
                         validator: (value) {
                           if (value.isEmpty) {
                             return 'Please specify quantity of the ingredient';
@@ -212,31 +236,11 @@ class AddRecipeViewState extends State<AddRecipeView> {
                     ),
                   ),
                   Expanded(
-                    flex: 2,
-                    child: DropdownButtonFormField(
-                      onChanged: (unit) {},
-                      items: Unit.values.map((Unit unit) {
-                        return DropdownMenuItem<Unit>(
-                            value: unit,
-                            child: Text(unit
-                                .toString()
-                                .substring(unit.toString().indexOf('.') + 1)));
-                      }).toList(),
-                      decoration: const InputDecoration(labelText: 'Unit'),
-                      validator: (value) {
-                        if (!value) {
-                          return 'Please specify the unit';
-                        }
-                        return null;
-                      },
-                    ),
-                  ),
-                  Expanded(
                     flex: 1,
                     child: IconButton(
                       onPressed: () {
                         setState(() {
-                          addStep(new CookStep(name: 'TmpStep', description: 'TmpDesc'));
+                          addStep(new CookStep(name: _stepNameController.text, description: _stepDescriptionController.text));
                         });
                       },
                       icon: Icon(Icons.add),
@@ -248,7 +252,13 @@ class AddRecipeViewState extends State<AddRecipeView> {
               ElevatedButton(
                 child: Text('Add new Recipe'),
                 onPressed: () {
-                  // TODO: Implement adding recipe to Bloc
+                  // TODO: Add validation
+                  BlocProvider.of<RecipesBloc>(context)
+                      .add(
+                      RecipeAdded(
+                          Recipe(name: _nameController.text, cuisine: this.cuisine, ingredients: this.ingredients, cookSteps: this.steps)
+                      )
+                  );
                 },
               )
             ],
@@ -260,7 +270,7 @@ class AddRecipeViewState extends State<AddRecipeView> {
 
   @override
   void dispose() {
-    _controller.dispose();
+    _ingNameController.dispose();
     super.dispose();
   }
 }
