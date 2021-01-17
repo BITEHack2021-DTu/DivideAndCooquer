@@ -1,0 +1,1 @@
+enum VisibilityFilter { all, name, cuisine }
