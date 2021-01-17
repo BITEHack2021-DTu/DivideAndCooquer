@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:divide_and_cooquer/bloc/recipes/recipes_bloc.dart';
 import 'package:divide_and_cooquer/bloc/search/searched_recipes_state.dart';
 import 'package:divide_and_cooquer/models/recipe.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:string_similarity/string_similarity.dart';
@@ -71,7 +72,8 @@ class SearchedRecipesBloc extends Bloc<SearchedRecipesEvent, SearchedRecipesStat
     if(query != null) {
       return recipes.where((recipe) {
         return StringSimilarity.compareTwoStrings(recipe.name, query) > 0.3
-          || recipe.name.toUpperCase().startsWith(query.toUpperCase());
+        || recipe.name.toUpperCase().startsWith(query.toUpperCase())
+        || StringSimilarity.compareTwoStrings(describeEnum(recipe.cuisine), query) > 0.3;
       }).toList();
     } else {
       return [];
