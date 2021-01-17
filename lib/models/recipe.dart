@@ -25,7 +25,7 @@ class Recipe extends Equatable{
 
   static List<CookStep> _loadCookSteps(json) {
     return List.of(json["step"])
-        .map((rawStep) => CookStep(name: rawStep["name"]))
+        .map((rawStep) => CookStep(name: rawStep["name"], description: rawStep["description"]))
         .toList();
   }
 
@@ -43,7 +43,8 @@ class Recipe extends Equatable{
       "name": name,
       "cuisine": describeEnum(cuisine),
       "step": cookSteps.map((cookStep) => {
-        name: cookStep.name
+        "name": cookStep.name,
+        "description": cookStep.description
       }).toList(),
       "ingredients": ingredients
           .map((ingredient) => {
