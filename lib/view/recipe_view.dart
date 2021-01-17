@@ -12,16 +12,46 @@ class RecipeView extends StatelessWidget {
     Key key,
   });
 
+  Widget _stepToWidget(CookStep step) {
+    return Container(
+      decoration: BoxDecoration(
+          border: Border(bottom: BorderSide(color: Colors.black26))
+      ),
+      child: ListTile(
+        title: Text(step.name),
+        subtitle: Text(step.description),
+      ),
+    );
+  }
+
+  Widget _ingretdientToWidget(Ingredient ingredient) {
+    return Container(
+      decoration: BoxDecoration(
+          border: Border(bottom: BorderSide(color: Colors.black26))
+      ),
+      child: ListTile(
+        title: Text(ingredient.name),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final Recipe recipe = ModalRoute.of(context).settings.arguments;
     final List<CookStep> steps = recipe.cookSteps.sublist(1);
     final List<Ingredient> ingredients = recipe.ingredients;
+    final List<Widget> stepsWidgets = steps
+        .map((step) => _stepToWidget(step))
+        .toList();
+    final List<Widget> ingredientsWidgets = ingredients
+        .map((ingredient) => _ingretdientToWidget(ingredient))
+        .toList();
+
     return Scaffold(
       appBar: AppBar(
         title: Text(recipe.name),
       ),
-      body: Column(
+      body: ListView(
         children: [
           // TODO: Consider kicking this name container out as the name is now in the TopBar
           Container(
@@ -42,21 +72,8 @@ class RecipeView extends StatelessWidget {
               fontSize: 22,
             )
           ),
-          Expanded(
-            child: ListView.builder(
-                itemCount: ingredients.length,
-                itemBuilder: (BuildContext context, int index) {
-                  final ingredient = ingredients[index];
-                  return Container(
-                    decoration: BoxDecoration(
-                      border: Border(bottom: BorderSide(color: Colors.black26))
-                    ),
-                    child: ListTile(
-                        title: Text(ingredient.name),
-                      ),
-                  );
-                },
-            ),
+          Column(
+            children: ingredientsWidgets,
           ),
           Container(
             child: Text(
@@ -66,23 +83,9 @@ class RecipeView extends StatelessWidget {
                 )
             ),
           ),
-          Expanded(
-            child: ListView.builder(
-                itemCount: steps.length,
-                itemBuilder: (BuildContext context, int index) {
-                  final step = steps[index];
-                  return Container(
-                    decoration: BoxDecoration(
-                        border: Border(bottom: BorderSide(color: Colors.black26))
-                    ),
-                    child: ListTile(
-                      title: Text(step.name),
-                      subtitle: Text(step.description),
-                    ),
-                  );
-                }
-            ),
-          )
+         Column(
+           children: stepsWidgets,
+         )
         ]
       ),
     );
