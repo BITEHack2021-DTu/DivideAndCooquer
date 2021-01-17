@@ -23,24 +23,18 @@ class RecipeList extends StatelessWidget {
                 border: Border(bottom: BorderSide(color: Colors.black26)),
               ),
               child: ListTile(
-                title: Text(recipe.name),
-                subtitle: Text(recipe.cuisine),
-                onTap: () {
-                  Navigator.of(context).pushNamed("/recipe", arguments: recipe);
-                },
-                onLongPress: () {
-                  // TODO: Implement adding to TO-COOK list
-                  print('Press long');
-                  BlocBuilder<CookScheduleBloc, CookScheduleState>(builder: (context, state) {
-                    if(state is CookScheduleLoadSuccess) {
-                      BlocProvider.of<CookScheduleBloc>(context).add(CookScheduleAdded(recipe));
-                      print('Trying to add to cook schedule');
-                    } else {
-                      print('Hmm');
-                    }
-                  });
-                },
-              ),
+                  title: Text(recipe.name),
+                  subtitle: Text(recipe.cuisine),
+                  onTap: () {
+                    Navigator.of(context)
+                        .pushNamed("/recipe", arguments: recipe);
+                  },
+                  onLongPress: () {
+                    // TODO: Implement adding to TO-COOK list
+                    print('Press long');
+                    BlocProvider.of<CookScheduleBloc>(context)
+                        .add(CookScheduleRecipeAdded(recipe));
+                  }),
             );
           },
         );

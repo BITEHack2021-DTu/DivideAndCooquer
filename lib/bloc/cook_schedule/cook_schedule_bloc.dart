@@ -10,52 +10,47 @@ import 'package:meta/meta.dart';
 part 'cook_schedule_event.dart';
 part 'cook_schedule_state.dart';
 
-// TODO: Check it out later
-
 class CookScheduleBloc extends Bloc<CookScheduleEvent, CookScheduleState> {
-  //final List<Recipe> recipes = [];
 
-  CookScheduleBloc(RecipeRepository recipeRepository) : super(CookScheduleLoadInProgress());
+  CookScheduleBloc(RecipeRepository recipeRepository) : super(CookScheduleEmpty());
 
   @override
   Stream<CookScheduleState> mapEventToState(CookScheduleEvent event) async* {
-    if(event is CookScheduleLoaded) {
-      yield* _mapCookScheduleLoadedToState();
-    } else if (event is CookScheduleAdded) {
+    if(event is CookScheduleCleared) {
+      yield* _mapCookScheduleCleared();
+    } else if (event is CookScheduleRecipeAdded) {
       yield* _mapCookScheduleAddedToState(event);
+    } else if (event is CookScheduleRecipeDeleted) {
+      yield* _mapCookScheduleDeletedFromState(event);
     }
   }
 
-  Stream<CookScheduleState> _mapCookScheduleLoadedToState() async* {
-    yield CookScheduleLoadSuccess([]);
+  Stream<CookScheduleState> _mapCookScheduleCleared() async* {
+    yield CookScheduleEmpty();
   }
 
-  Stream<CookScheduleState> _mapCookScheduleAddedToState(CookScheduleAdded event) async* {
-    if(state is CookScheduleLoadSuccess) {
-      final List<Recipe> updatedCookSchedule = (state as CookScheduleLoadSuccess).recipes
+  Stream<CookScheduleState> _mapCookScheduleAddedToState(CookScheduleRecipeAdded event) async* {
+    if(state is CookScheduleFilled) {
+      final List<Recipe> updatedCookSchedule = (state as CookScheduleFilled).recipes
           ..add(event.recipe);
 
-      print(updatedCookSchedule);
-
-      yield CookScheduleLoadSuccess(updatedCookSchedule);
+      yield CookScheduleFilled(updatedCookSchedule);
+    } else {
+      yield CookScheduleFilled([event.recipe]);
     }
   }
 
-  Stream<CookScheduleState> _mapCookScheduleDeletedFromState(CookScheduleDeleted event) async* {
-    if (state is CookScheduleLoadSuccess) {
-      final List<Recipe> updatedCookSchedule = (state as CookScheduleLoadSuccess)
+  Stream<CookScheduleState> _mapCookScheduleDeletedFromState(CookScheduleRecipeDeleted event) async* {
+    if (state is CookScheduleFilled) {
+      final List<Recipe> updatedCookSchedule = (state as CookScheduleFilled)
           .recipes
           .where((recipe) => recipe.name != event.recipe.name)
           .toList();
-      yield CookScheduleLoadSuccess(updatedCookSchedule);
+      if(updatedCookSchedule.isEmpty) {
+        yield CookScheduleEmpty();
+      } else {
+        yield CookScheduleFilled(updatedCookSchedule);
+      }
     }
   }
-
-  /*void addRecipe(Recipe recipe) {
-    this.recipes.add(recipe);
-  }
-
-  void removeRecipe(Recipe recipe) {
-    this.recipes.remove(recipe);
-  }*/
 }

@@ -19,7 +19,7 @@ class App extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => RecipesBloc(RecipeRepository())..add(RecipesLoaded())),
-        BlocProvider(create: (context) => CookScheduleBloc(RecipeRepository())..add(CookScheduleLoaded())),
+        BlocProvider(create: (context) => CookScheduleBloc(RecipeRepository())..add(CookScheduleCleared())),
       ],
       child: ChangeNotifierProvider(
         // TODO: Czy to ma sens?

@@ -8,15 +8,13 @@ abstract class CookScheduleState extends Equatable {
   List<Object> get props => [];
 }
 
-class CookScheduleLoadInProgress extends CookScheduleState {}
+class CookScheduleEmpty extends CookScheduleState {}
 
-class CookScheduleLoadSuccess extends CookScheduleState {
+class CookScheduleFilled extends CookScheduleState {
   final List<Recipe> recipes;
 
-  CookScheduleLoadSuccess([this.recipes = const []]);
+  CookScheduleFilled([this.recipes = const []]);
 
   @override
   List<Object> get props => [recipes];
 }
-
-class CookScheduleLoadFailure extends CookScheduleState {}

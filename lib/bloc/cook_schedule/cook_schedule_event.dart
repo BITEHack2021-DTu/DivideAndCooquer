@@ -7,21 +7,21 @@ abstract class CookScheduleEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class CookScheduleLoaded extends CookScheduleEvent {}
+class CookScheduleCleared extends CookScheduleEvent {}
 
-class CookScheduleAdded extends CookScheduleEvent {
+class CookScheduleRecipeAdded extends CookScheduleEvent {
   final Recipe recipe;
 
-  const CookScheduleAdded(this.recipe);
+  const CookScheduleRecipeAdded(this.recipe);
 
   @override
   List<Object> get props => [recipe];
 }
 
-class CookScheduleDeleted extends CookScheduleEvent {
+class CookScheduleRecipeDeleted extends CookScheduleEvent {
   final Recipe recipe;
 
-  const CookScheduleDeleted(this.recipe);
+  const CookScheduleRecipeDeleted(this.recipe);
 
   @override
   List<Object> get props => [recipe];
