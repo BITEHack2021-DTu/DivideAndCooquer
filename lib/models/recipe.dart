@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:divide_and_cooquer/models/cuisines.dart';
 import 'package:divide_and_cooquer/models/unit.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/foundation.dart';
 
 import '../utils.dart';
 import 'cook_step.dart';
@@ -40,13 +41,15 @@ class Recipe extends Equatable{
   String toJSON() {
     final recipeObj = {
       "name": name,
-      "cuisine": cuisine,
+      "cuisine": describeEnum(cuisine),
       "step": cookSteps.map((cookStep) => {
         name: cookStep.name
       }).toList(),
       "ingredients": ingredients
           .map((ingredient) => {
-            name: ingredient.name
+            "name": ingredient.name,
+            "quantity": ingredient.quantity,
+            "unit": describeEnum(ingredient.unit)
       }).toList(),
     };
     return JsonEncoder().convert(recipeObj);

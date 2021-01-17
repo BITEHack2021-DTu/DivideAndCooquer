@@ -4,22 +4,22 @@
 "ingredients" : [
   {
     "name" : "Sauce",
-    "quantity" : 100,
+    "quantity" : 100.0,
     "unit" : "g"
   },
   {
     "name" : "Cheese",
-    "quantity" : 300,
+    "quantity" : 300.0,
     "unit": "g"
   },
   {
     "name" : "Bread",
-    "quantity" : 300,
+    "quantity" : 300.0,
     "unit": "g"
   },
   {
     "name" : "Toppings",
-    "quantity" : 200,
+    "quantity" : 200.0,
     "unit": "g"
   }
 ],

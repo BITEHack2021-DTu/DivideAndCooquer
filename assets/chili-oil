@@ -4,27 +4,27 @@
     "ingredients" : [
       {
         "name" : "Vegetable oil",
-        "quantity" : 500,
+        "quantity" : 500.0,
          "unit" : "ml"
       },
       {
         "name" : "Sichuan peppercorns",
-        "quantity" : 1,
+        "quantity" : 1.0,
         "unit" : "tbsp"
       },
       {
         "name" : "Crushed red pepper flakes",
-        "quantity" : 2,
+        "quantity" : 2.0,
         "unit" : "tbsp"
       },
       {
         "name" : "Sesame seeds",
-        "quantity" : 1,
+        "quantity" : 1.0,
         "unit" : "tbsp"
       },
       {
         "name" : "Chinese five-spice powder",
-        "quantity" : 1,
+        "quantity" : 1.0,
         "unit" : "tsp"
       }
     ],
