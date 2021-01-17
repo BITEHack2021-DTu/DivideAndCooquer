@@ -5,6 +5,7 @@ import 'package:divide_and_cooquer/bloc/recipes/recipes_bloc.dart';
 import 'package:divide_and_cooquer/models/recipe.dart';
 import 'package:divide_and_cooquer/repositories/recipe_repository.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
 part 'cook_schedule_event.dart';
@@ -33,7 +34,6 @@ class CookScheduleBloc extends Bloc<CookScheduleEvent, CookScheduleState> {
     if(state is CookScheduleFilled) {
       final List<Recipe> updatedCookSchedule = (state as CookScheduleFilled).recipes
           ..add(event.recipe);
-
       yield CookScheduleFilled(updatedCookSchedule);
     } else {
       yield CookScheduleFilled([event.recipe]);

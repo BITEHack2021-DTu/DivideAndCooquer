@@ -1,4 +1,5 @@
 import 'package:divide_and_cooquer/bloc/cook_schedule/cook_schedule_bloc.dart';
+import 'package:divide_and_cooquer/bloc/recipe_checklist/recipe_checklist_bloc.dart';
 import 'package:divide_and_cooquer/bloc/recipes/recipes_bloc.dart';
 import 'package:divide_and_cooquer/repositories/recipe_repository.dart';
 import 'package:divide_and_cooquer/theme/app_theme.dart';
@@ -23,24 +24,29 @@ class App extends StatelessWidget {
         BlocProvider(create: (context) => RecipesBloc(RecipeRepository())..add(RecipesLoaded())),
         BlocProvider(create: (context) => CookScheduleBloc(RecipeRepository())..add(CookScheduleCleared())),
       ],
-      child: ChangeNotifierProvider(
-        // TODO: Czy to ma sens?
-        create: (context) => AppTheme(CustomTheme(Colors.amber, Colors.black, Colors.green)),
-        child: Consumer<AppTheme>(
-          builder: (context, value, child) {
-            return MaterialApp(
-              title: 'Divide And Cooquer',
-              theme: ThemeData.dark(),
-              initialRoute: '/recipe_step',
-              routes: {
-                '/': (context) => RecipeApp(),
-                '/recipe': (context) => RecipeView(),
-                '/new_recipe': (context) => AddRecipeView(),
-                "/recipe_search": (context) => RecipeSearchView(),
-                "/recipe_step": (context) => StepView(),
-              },
-            );
-          },
+      child: BlocProvider(
+        create: (context) => RecipeChecklistBloc(
+            BlocProvider.of<CookScheduleBloc>(context),
+            BlocProvider.of<RecipesBloc>(context)),
+        child: ChangeNotifierProvider(
+          // TODO: Czy to ma sens?
+          create: (context) => AppTheme(CustomTheme(Colors.amber, Colors.black, Colors.green)),
+          child: Consumer<AppTheme>(
+            builder: (context, value, child) {
+              return MaterialApp(
+                title: 'Divide And Cooquer',
+                theme: ThemeData.dark(),
+                initialRoute: '/',
+                routes: {
+                  '/': (context) => RecipeApp(),
+                  '/recipe': (context) => RecipeView(),
+                  '/new_recipe': (context) => AddRecipeView(),
+                  "/recipe_search": (context) => RecipeSearchView(),
+                  "/recipe_step": (context) => StepView(),
+                },
+              );
+            },
+          ),
         ),
       ),
     );

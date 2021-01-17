@@ -27,23 +27,35 @@ class StepView extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Text(step.name),
-                            Text(step.description)
+                            Text(
+                              step.name,
+                              style: TextStyle(
+                                fontSize: 60
+                              ),
+                            ),
+                            Text(
+                              step.description,
+                              style: TextStyle(
+                                  fontSize: 30
+                              ),
+                            )
                           ],
                         ),
                       ),
-
-                      Expanded(
-                        flex: 1,
-                        child: InkWell(
-                          child: Icon(Icons.chevron_right, size: 100),
-                          onTap: () {
-                            debugPrint("tu ejstem");
-                          },
-                        ),
-                      )
-                    ],
-                  )
+                Expanded(
+                    flex: 1,
+                    child: RawMaterialButton(
+                      onPressed: () {},
+                      elevation: 2.0,
+                      child: Icon(
+                        Icons.chevron_right,
+                        size: 100.0,
+                      ),
+                      padding: EdgeInsets.all(15.0),
+                      shape: CircleBorder(),
+                    ))
+              ],
+            )
               );
             } else {
               return Container();

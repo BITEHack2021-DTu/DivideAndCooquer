@@ -51,42 +51,32 @@ class RecipeView extends StatelessWidget {
       appBar: AppBar(
         title: Text(recipe.name),
       ),
-      body: ListView(
-        children: [
-          // TODO: Consider kicking this name container out as the name is now in the TopBar
-          Container(
-            margin: EdgeInsets.all(5),
-            child: Text(
-              recipe.name,
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: ListView(
+          children: [
+            Text(
+              'Ingredients',
               style: TextStyle(
-                fontSize: 34,
-                fontWeight: FontWeight.bold,
-                fontFamily: 'RobotoMono',
+                fontSize: 26,
+              )
+            ),
+            Column(
+              children: ingredientsWidgets,
+            ),
+            Container(
+              child: Text(
+                  'Steps',
+                  style: TextStyle(
+                    fontSize: 26,
+                  )
               ),
             ),
-          ),
-          // TODO: Style this
-          Text(
-            'Ingredients',
-            style: TextStyle(
-              fontSize: 22,
-            )
-          ),
-          Column(
-            children: ingredientsWidgets,
-          ),
-          Container(
-            child: Text(
-                'Steps',
-                style: TextStyle(
-                  fontSize: 22,
-                )
-            ),
-          ),
-         Column(
-           children: stepsWidgets,
-         )
-        ]
+           Column(
+             children: stepsWidgets,
+           )
+          ]
+        ),
       ),
     );
   }
