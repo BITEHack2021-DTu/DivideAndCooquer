@@ -27,7 +27,7 @@ class AddRecipeView extends StatelessWidget {
               },
             ),
             DropdownButtonFormField(
-              onTap: () {print('tap');},
+              onChanged: (cuisine) {},
               items: Cuisines.values.map((Cuisines cuisine) {
                 return DropdownMenuItem<Cuisines>(
                     value: cuisine, child: Text(cuisine.toString()));
@@ -40,7 +40,15 @@ class AddRecipeView extends StatelessWidget {
                 return null;
               },
             ),
-            Container(child: Text('Ingredients')),
+            Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                      'Ingredients',
+                    style: TextStyle(fontSize: 18),
+                  ),
+                )
+            ),
             /*Row(
               children: [
                 TextFormField(
