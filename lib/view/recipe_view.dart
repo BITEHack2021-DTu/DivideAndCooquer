@@ -23,7 +23,7 @@ class RecipeView extends StatelessWidget {
       ),
       body: Column(
         children: [
-          // TODO: Make recipe name more visible, etc.
+          // TODO: Consider kicking this name container out as the name is now in the TopBar
           Container(
             margin: EdgeInsets.all(5),
             child: Text(

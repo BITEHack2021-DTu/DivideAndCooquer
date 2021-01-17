@@ -13,7 +13,11 @@ class RecipeApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: TopBar(),
+      appBar: TopBar(
+            () {
+              Navigator.of(context).pushNamed("/new_recipe");
+              },
+      ),
       body: Center(
         child: RecipeList(),
       ),

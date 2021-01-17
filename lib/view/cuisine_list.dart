@@ -19,8 +19,11 @@ class CuisineList extends StatelessWidget {
                 itemCount: cuisines.length,
                 itemBuilder: (BuildContext context, int index) {
                   final cuisines = cuisines[index];
-                  return CuisineItem(
-                      cuisine: cuisine
+                  return ListTile(
+                      title: Text(recipe.name),
+                      onTap: () {
+                        print('Not yet implemented');
+                      }
                   );
                 }
             );

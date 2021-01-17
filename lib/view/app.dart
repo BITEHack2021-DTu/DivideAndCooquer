@@ -3,6 +3,7 @@ import 'package:divide_and_cooquer/bloc/recipes/recipes_bloc.dart';
 import 'package:divide_and_cooquer/repositories/recipe_repository.dart';
 import 'package:divide_and_cooquer/theme/app_theme.dart';
 import 'package:divide_and_cooquer/theme/custom_theme.dart';
+import 'package:divide_and_cooquer/view/add_recipe_view.dart';
 import 'package:divide_and_cooquer/view/recipe_app.dart';
 import 'package:divide_and_cooquer/view/recipe_view.dart';
 import 'package:flutter/cupertino.dart';
@@ -31,7 +32,8 @@ class App extends StatelessWidget {
               initialRoute: '/',
               routes: {
                 '/': (context) => RecipeApp(),
-                '/recipe': (context) => RecipeView()
+                '/recipe': (context) => RecipeView(),
+                '/new_recipe': (context) => AddRecipeView(),
               },
             );
           },

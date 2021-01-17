@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 
 class TopBar extends AppBar {
-  TopBar() : super(
+  TopBar(addCallback) : super(
       title: const Text('Divide and Cooquer'),
       actions: <Widget>[
         IconButton(
           icon: const Icon(Icons.add),
           tooltip: 'Add recipe',
-          onPressed: () {
-            //TODO: Implement action
-          },
+          onPressed: addCallback,
         ),
         IconButton(
           icon: const Icon(Icons.search),
