@@ -77,6 +77,7 @@ class RecipeView extends StatelessWidget {
                     ),
                     child: ListTile(
                       title: Text(step.name),
+                      subtitle: Text(step.description),
                     ),
                   );
                 }

@@ -236,7 +236,7 @@ class AddRecipeViewState extends State<AddRecipeView> {
                     child: IconButton(
                       onPressed: () {
                         setState(() {
-                          addStep(new CookStep(name: 'TmpStep'));
+                          addStep(new CookStep(name: 'TmpStep', description: 'TmpDesc'));
                         });
                       },
                       icon: Icon(Icons.add),
