@@ -1,0 +1,85 @@
+{
+"cuisine" : "Italian",
+"name" : "Pesto Caprese Noodle Salad",
+"ingredients" : [
+{
+"name" : "No Yolks Extra Broad Noodles",
+"quantity" : 12,
+"unit": "oz"
+},
+{
+"name" : "Walnuts",
+"quantity" : 0.25,
+"unit": "oz"
+},
+{
+"name" : "Fresh basil leaves, packed",
+"quantity" : 2,
+"unit": "oz"
+},
+{
+"name" : "Extra-virgin olive oil",
+"quantity" : 0.25,
+"unit": "c"
+},
+{
+"name" : "Grlic",
+"quantity" : 2,
+ unit : "cloves"
+},
+{
+"name" : "Freshly grated Parmesan",
+"quantity" : 0.25,
+"unit": "c"
+},
+{
+"name" : "Lemon juice",
+"quantity" : 50,
+"unit": "ml"
+},
+{
+"name" : "Kosher salt",
+"quantity" : 1,
+"unit": "piece"
+},
+{
+"name" : "Freshly ground black pepper",
+"quantity" : 1,
+"unit": "pinch"
+},
+{
+"name" : "Cherry tomatoes, halved",
+"quantity" : 1,
+"unit" : "pt"
+},
+{
+"name" : "Ciliegine (small mozzarella balls), halved",
+"quantity" : 8,
+ "unit" : "oz"
+}
+],
+"step" : [
+{
+"name" : "fake",
+"next": [1]
+},
+{
+"name": "Prepare",
+"description": "Cook No Yolks Extra Broad Noodles according to package directions, then drain.",
+"time": 20,
+"next": [2]
+},
+{
+"name": "Prepare",
+"description": "Make pesto: In a dry skillet over medium heat, toast walnuts until golden, 3 to 4 minutes, swirling pan constantly. In a blender, combine basil and olive oil. Blend until combined, then add walnuts, garlic, Parmesan, and lemon juice and season with salt and pepper. Pulse until completely incorporated.",
+"time": 40,
+"next": [3]
+},
+{
+"name": "Prepare",
+"description": "In a large bowl, toss together noodles, pesto, tomatoes, and Ciliegine until well coated.",
+"time": 20,
+"next":
+}
+]
+}

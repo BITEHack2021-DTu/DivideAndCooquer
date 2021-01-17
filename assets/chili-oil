@@ -1,0 +1,67 @@
+  {
+    "cuisine" : "Mexican",
+    "name" : "Chili oil",
+    "ingredients" : [
+      {
+        "name" : "Vegetable oil",
+        "quantity" : 500,
+         "unit" : "ml"
+      },
+      {
+        "name" : "Sichuan peppercorns",
+        "quantity" : 1,
+        "unit" : "tbsp"
+      },
+      {
+        "name" : "Crushed red pepper flakes",
+        "quantity" : 2,
+        "unit" : "tbsp"
+      },
+      {
+        "name" : "Sesame seeds",
+        "quantity" : 1,
+        "unit" : "tbsp"
+      },
+      {
+        "name" : "Chinese five-spice powder",
+        "quantity" : 1,
+        "unit" : "tsp"
+      }
+    ],
+    "step" : [
+      {
+        "name" : "fake",
+        "next": [1]
+      },
+      {
+        "name": "Prepare",
+        "description": "Fit a small saucepan with a candy thermometer.",
+        "time": 1,
+        "next": [2]
+      },
+      {
+        "name": "Begin",
+        "description": "Add vegetable oil and Sichuan peppercorns",
+        "time": 3,
+        "next": [3]
+      },
+      {
+        "name": "Heat",
+        "description": "Heat to 325°",
+        "time": 10,
+        "next": [4]
+      },
+      {
+        "name": "Turn off",
+        "description": "Turn off heat and add red pepper flakes, sesame seeds, and five-spice powder.",
+        "time": 5,
+        "next": [5]
+      },
+      {
+        "name": "Wait",
+        "description": "Let oil cool completely.",
+        "time": 15,
+        "next":
+      }
+    ]
+  }

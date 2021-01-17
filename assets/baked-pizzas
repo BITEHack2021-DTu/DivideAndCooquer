@@ -1,0 +1,51 @@
+ {
+    "cuisine" : "French",
+    "name" : "Oven-Baked French Bread Pizzas",
+    "ingredients" : [
+      {
+      "name" : Sauce
+        "quantity" : 100,
+        "unit" : "g"
+      },
+      {
+        "name" : "Cheese",
+        "quantity" : 300,
+        "unit": "g"
+      },
+      {
+        "name" : "Bread",
+        "quantity" : 300,
+        "unit": "g"
+      },
+      {
+        "name" : "Toppings",
+        "quantity" : 200,
+        "unit": "g"
+      }
+    ],
+    "step" : [
+      {
+        "name" : "fake",
+        "next": [1]
+      },
+      {
+        "name": "Cut baguettes",
+        "description": "Just cut some baguettes in half",
+        "time": 2,
+        "next": [2]
+      },
+      {
+        "name": "Spread on some sauce",
+        "description": "spread on some sauce (tomato, BBQ, Ranch — whatever you want!)",
+        "time": 5,
+        "next": [3]
+      },
+      {
+        "name": "Pop 'em in the oven",
+        "description": "Pop 'em in the oven",
+        "time": 15,
+        "next":
+      }
+    ]
+  }
+
