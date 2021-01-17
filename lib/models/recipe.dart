@@ -1,13 +1,16 @@
 import 'dart:convert';
 
+import 'package:divide_and_cooquer/models/cuisines.dart';
+import 'package:divide_and_cooquer/models/unit.dart';
 import 'package:equatable/equatable.dart';
 
+import '../utils.dart';
 import 'cook_step.dart';
 import 'ingredient.dart';
 
 class Recipe extends Equatable{
   final String name;
-  final String cuisine;
+  final Cuisines cuisine;
   final List<Ingredient> ingredients;
   final List<CookStep> cookSteps;
 
@@ -17,17 +20,20 @@ class Recipe extends Equatable{
   : ingredients  = _loadIngredients(json),
     cookSteps = _loadCookSteps(json),
     name = json["name"],
-    cuisine = json["cuisine"];
+    cuisine = stringToEnum(Cuisines.values, json["cuisine"]);
 
   static List<CookStep> _loadCookSteps(json) {
-  return List.of(json["step"])
-    .map((rawStep) => CookStep(name: rawStep["name"]))
-    .toList();
+    return List.of(json["step"])
+        .map((rawStep) => CookStep(name: rawStep["name"]))
+        .toList();
   }
 
   static List<Ingredient> _loadIngredients(json) {
     return List.of(json["ingredients"])
-        .map((rawIngredient) => Ingredient(name: rawIngredient["name"]))
+        .map((rawIngredient) => Ingredient(
+            name: rawIngredient["name"],
+            quantity: rawIngredient["quantity"],
+            unit: stringToEnum(Unit.values, rawIngredient["unit"])))
         .toList();
   }
 

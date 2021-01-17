@@ -2,6 +2,7 @@ import 'package:divide_and_cooquer/bloc/cook_schedule/cook_schedule_bloc.dart';
 import 'package:divide_and_cooquer/bloc/recipes/recipes_bloc.dart';
 import 'package:divide_and_cooquer/bloc/search/searched_recipes.dart';
 import 'package:divide_and_cooquer/models/recipe.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -13,7 +14,7 @@ class RecipeSearchView extends StatelessWidget {
       ),
       child: ListTile(
           title: Text(recipe.name),
-          subtitle: Text(recipe.cuisine),
+          subtitle: Text(describeEnum(recipe.cuisine)),
           onTap: () {
             Navigator.of(context)
                 .pushNamed("/recipe", arguments: recipe);
