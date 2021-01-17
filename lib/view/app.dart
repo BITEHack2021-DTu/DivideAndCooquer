@@ -13,7 +13,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => RecipesBloc(RecipeRepository()),
+      create: (context) => RecipesBloc(RecipeRepository())..add(RecipesLoaded()),
       child: ChangeNotifierProvider(
         create: (context) => AppTheme(CustomTheme(Colors.amber, Colors.black)),
         child: Consumer<AppTheme>(

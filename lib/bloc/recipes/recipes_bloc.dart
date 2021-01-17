@@ -15,9 +15,7 @@ class RecipesBloc extends Bloc<RecipesEvent, RecipesState> {
   RecipesBloc(@required this.recipeRepository) : super(RecipesLoadInProgress());
 
   @override
-  Stream<RecipesState> mapEventToState(
-    RecipesEvent event,
-  ) async* {
+  Stream<RecipesState> mapEventToState(RecipesEvent event) async* {
     if(event is RecipesLoaded) {
       yield* _mapRecipeLoadedToState();
     } else if (event is RecipeAdded) {
