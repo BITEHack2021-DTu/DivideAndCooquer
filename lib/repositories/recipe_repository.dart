@@ -49,7 +49,7 @@ class RecipeRepository {
     return documentDirPath + "/" + prefix;
 }
 
-  Future<void> _loadRecipesFromFile(List<FileSystemEntity> entries) {
+  Future<void> _loadRecipesFromFile(List<FileSystemEntity> entries) async {
     recipes = entries
         .map((FileSystemEntity entry) {
       final rawJSON = File(entry.path).readAsStringSync();
@@ -59,7 +59,7 @@ class RecipeRepository {
     });
   }
 
-  Future<void> addRecipe(Recipe recipe) {
+  Future<void> addRecipe(Recipe recipe) async {
     recipes.add(recipe);
     saveRecipe(recipe);
   }
@@ -70,9 +70,9 @@ class RecipeRepository {
       recipeFile.writeAsString(recipe.toJSON());
   }
 
-  Future<void> deleteRecipe(Recipe recipe) {
+  Future<void> deleteRecipe(Recipe recipe) async {
       recipes.remove(recipe);
-
+      //todo remove from disc
   }
 
   Future<void> _loadRecipesOnline() async {

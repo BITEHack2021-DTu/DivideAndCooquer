@@ -37,14 +37,16 @@ class RecipeView extends StatelessWidget {
               fontSize: 22,
             )
           ),
-          ListView.builder(
-              itemCount: ingredients.length,
-              itemBuilder: (BuildContext context, int index) {
-                final ingredient = ingredients[index];
-                return ListTile(
-                    title: Text(ingredient.name)
-                );
-              }
+          Expanded(
+            child: ListView.builder(
+                itemCount: ingredients.length,
+                itemBuilder: (BuildContext context, int index) {
+                  final ingredient = ingredients[index];
+                  return ListTile(
+                      title: Text(ingredient.name)
+                  );
+                }
+            ),
           ),
           Text(
               'Steps',
@@ -52,14 +54,16 @@ class RecipeView extends StatelessWidget {
                 fontSize: 22,
               )
           ),
-          ListView.builder(
-              itemCount: steps.length,
-              itemBuilder: (BuildContext context, int index) {
-                final step = steps[index];
-                return ListTile(
-                    title: Text(step.name)
-                );
-              }
+          Expanded(
+            child: ListView.builder(
+                itemCount: steps.length,
+                itemBuilder: (BuildContext context, int index) {
+                  final step = steps[index];
+                  return ListTile(
+                      title: Text(step.name)
+                  );
+                }
+            ),
           )
         ]
       ),
