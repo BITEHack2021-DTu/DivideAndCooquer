@@ -8,7 +8,7 @@ part 'cooking_process_event.dart';
 part 'cooking_process_state.dart';
 
 class CookingProcessBloc extends Bloc<CookingProcessEvent, CookingProcessState> {
-  CookingProcessBloc() : super(CookingProcessStepState(CookStep(name: "test")));
+  CookingProcessBloc() : super(CookingProcessStepState(CookStep(name: "test", description: "testowa")));
 
   @override
   Stream<CookingProcessState> mapEventToState(
