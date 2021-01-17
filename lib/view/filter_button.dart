@@ -1,6 +1,6 @@
-import 'package:divide_and_cooquer/bloc/search/filtered_recipes_bloc.dart';
-import 'package:divide_and_cooquer/bloc/search/filtered_recipes_event.dart';
-import 'package:divide_and_cooquer/bloc/search/filtered_recipes_state.dart';
+import 'package:divide_and_cooquer/bloc/search/searched_recipes_bloc.dart';
+import 'package:divide_and_cooquer/bloc/search/searched_recipes_event.dart';
+import 'package:divide_and_cooquer/bloc/search/searched_recipes_state.dart';
 import 'package:divide_and_cooquer/models/visibility_filter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,13 +17,13 @@ class FilterButton extends StatelessWidget {
         .textTheme
         .bodyText2
         .copyWith(color: Theme.of(context).accentColor);
-    return BlocBuilder<FilteredRecipesBloc, FilteredRecipesState>(
+    return BlocBuilder<SearchedRecipesBloc, SearchedRecipesState>(
         builder: (context, state) {
           final button = _Button(
             onSelected: (filter) {
-              BlocProvider.of<FilteredRecipesBloc>(context).add(FilterUpdated(filter));
+              BlocProvider.of<SearchedRecipesBloc>(context).add(SearchUpdated(filter));
             },
-            activeFilter: state is FilteredRecipesLoadSuccess
+            activeFilter: state is SearchedRecipesLoadSuccess
                 ? state.activeFilter
                 : VisibilityFilter.all,
             activeStyle: activeStyle,
