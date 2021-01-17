@@ -15,7 +15,7 @@ class RecipeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Recipe recipe = ModalRoute.of(context).settings.arguments;
-    final List<CookStep> steps = recipe.cookSteps;
+    final List<CookStep> steps = recipe.cookSteps.sublist(1);
     final List<Ingredient> ingredients = recipe.ingredients;
     return Scaffold(
       appBar: AppBar(
@@ -24,10 +24,15 @@ class RecipeView extends StatelessWidget {
       body: Column(
         children: [
           // TODO: Make recipe name more visible, etc.
-          Text(
-            recipe.name,
-            style: TextStyle(
-              fontSize: 28,
+          Container(
+            margin: EdgeInsets.all(5),
+            child: Text(
+              recipe.name,
+              style: TextStyle(
+                fontSize: 34,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'RobotoMono',
+              ),
             ),
           ),
           // TODO: Style this
@@ -42,25 +47,37 @@ class RecipeView extends StatelessWidget {
                 itemCount: ingredients.length,
                 itemBuilder: (BuildContext context, int index) {
                   final ingredient = ingredients[index];
-                  return ListTile(
-                      title: Text(ingredient.name)
+                  return Container(
+                    decoration: BoxDecoration(
+                      border: Border(bottom: BorderSide(color: Colors.black26))
+                    ),
+                    child: ListTile(
+                        title: Text(ingredient.name),
+                      ),
                   );
-                }
+                },
             ),
           ),
-          Text(
-              'Steps',
-              style: TextStyle(
-                fontSize: 22,
-              )
+          Container(
+            child: Text(
+                'Steps',
+                style: TextStyle(
+                  fontSize: 22,
+                )
+            ),
           ),
           Expanded(
             child: ListView.builder(
                 itemCount: steps.length,
                 itemBuilder: (BuildContext context, int index) {
                   final step = steps[index];
-                  return ListTile(
-                      title: Text(step.name)
+                  return Container(
+                    decoration: BoxDecoration(
+                        border: Border(bottom: BorderSide(color: Colors.black26))
+                    ),
+                    child: ListTile(
+                      title: Text(step.name),
+                    ),
                   );
                 }
             ),

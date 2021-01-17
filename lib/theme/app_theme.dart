@@ -10,6 +10,7 @@ class AppTheme extends ChangeNotifier {
 
   Color get appBar => theme.appBar;
   Color get background => theme.background;
+  Color get listItem => theme.listItem;
 
   void setTheme(CustomTheme theme) {
     this.theme = theme;

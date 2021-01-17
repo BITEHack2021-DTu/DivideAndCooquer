@@ -17,6 +17,7 @@ class RecipeApp extends StatelessWidget {
       body: Center(
         child: RecipeList(),
       ),
+      backgroundColor: Theme.of(context).backgroundColor,
     );
   }
 }
