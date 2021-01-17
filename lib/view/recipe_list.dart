@@ -1,5 +1,5 @@
+import 'package:divide_and_cooquer/bloc/cook_schedule/cook_schedule_bloc.dart';
 import 'package:divide_and_cooquer/bloc/recipes/recipes_bloc.dart';
-import 'package:divide_and_cooquer/view/recipe_item.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,14 +22,23 @@ class RecipeList extends StatelessWidget {
               decoration: BoxDecoration(
                 border: Border(bottom: BorderSide(color: Colors.black26)),
               ),
-              child: RecipeItem(
-                recipe: recipe,
+              child: ListTile(
+                title: Text(recipe.name),
+                subtitle: Text(recipe.cuisine),
                 onTap: () {
                   Navigator.of(context).pushNamed("/recipe", arguments: recipe);
                 },
                 onLongPress: () {
                   // TODO: Implement adding to TO-COOK list
                   print('Press long');
+                  BlocBuilder<CookScheduleBloc, CookScheduleState>(builder: (context, state) {
+                    if(state is CookScheduleLoadSuccess) {
+                      BlocProvider.of<CookScheduleBloc>(context).add(CookScheduleAdded(recipe));
+                      print('Trying to add to cook schedule');
+                    } else {
+                      print('Hmm');
+                    }
+                  });
                 },
               ),
             );

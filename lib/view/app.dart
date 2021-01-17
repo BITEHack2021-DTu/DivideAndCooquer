@@ -1,3 +1,4 @@
+import 'package:divide_and_cooquer/bloc/cook_schedule/cook_schedule_bloc.dart';
 import 'package:divide_and_cooquer/bloc/recipes/recipes_bloc.dart';
 import 'package:divide_and_cooquer/repositories/recipe_repository.dart';
 import 'package:divide_and_cooquer/theme/app_theme.dart';
@@ -14,8 +15,11 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => RecipesBloc(RecipeRepository())..add(RecipesLoaded()),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => RecipesBloc(RecipeRepository())..add(RecipesLoaded())),
+        BlocProvider(create: (context) => CookScheduleBloc(RecipeRepository())..add(CookScheduleLoaded())),
+      ],
       child: ChangeNotifierProvider(
         // TODO: Czy to ma sens?
         create: (context) => AppTheme(CustomTheme(Colors.amber, Colors.black, Colors.green)),
